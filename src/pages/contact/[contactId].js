@@ -55,7 +55,9 @@ const Profile = ({ character, episodes }) => {
         <div className="wrapper wrapper-p-x wrapper-p-t mb-4">
           <div>
             <Link
-              className="border px-3 py-2 hover:bg-blue-800 hover:text-white rounded-lg leading-[40px]"
+              className="text-white leading-[40px] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none 
+                          focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 
+                          text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               href={`/`}
             >
               Back to all listing
