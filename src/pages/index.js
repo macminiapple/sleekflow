@@ -4,7 +4,7 @@ import Table, { THead, TBody, TH, TR, TD } from "@/components/table";
 import Link from "next/link";
 import { useState } from "react";
 import { API_URL } from "@/API";
-import Pagination from "@/components/pagination";
+import { Pagination } from "antd";
 
 export const getServerSideProps = async () => {
   const res = await fetch(`${process.env.API_URL}/character`);
@@ -20,7 +20,6 @@ const Home = ({ contactListAPI }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = async (value) => {
-    console.log("handleSearch", value);
     setSearchValue(value);
     const res = await fetch(`${API_URL}/character/?name=${value}`);
     const searchApi = await res.json();
@@ -28,7 +27,6 @@ const Home = ({ contactListAPI }) => {
   };
 
   const handlePagination = async (value) => {
-    console.log("handlePagination", value);
     const param = searchValue
       ? `name=${searchValue}&page=${value}`
       : `page=${value}`;
@@ -36,8 +34,6 @@ const Home = ({ contactListAPI }) => {
     const searchApi = await res.json();
     setContactList(searchApi);
   };
-
-  console.log("contactList", contactList);
 
   return (
     <>
@@ -63,9 +59,16 @@ const Home = ({ contactListAPI }) => {
                 value={searchValue}
               ></Input>
             </div>
-            <div>
-              <Pagination onClick={handlePagination} />
-            </div>
+            {contactList?.info?.count && (
+              <div>
+                <Pagination
+                  total={contactList?.info?.count}
+                  pageSize={20}
+                  showSizeChanger={false}
+                  onChange={(e) => handlePagination(e)}
+                />
+              </div>
+            )}
           </div>
           <div>
             {contactList?.results?.length ? (
